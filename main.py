@@ -1,5 +1,9 @@
 from fastapi import FastAPI
-from database import connect_to_mongo, close_mongo_connection
+
+from database import close_mongo_connection, connect_to_mongo
+from routes.user import (
+    router as users_router,  # Import users_router from the appropriate module
+)
 
 app = FastAPI()
 
@@ -16,4 +20,7 @@ async def shutdown_event():
 
 @app.get("/")
 async def root():
-    return {"message": "FastAPI is running 🚀"}
+    return {"message": "FastAPI is running "}
+
+
+app.include_router(users_router, prefix="")
